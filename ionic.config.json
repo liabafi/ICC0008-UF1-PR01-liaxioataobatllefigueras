@@ -1,0 +1,7 @@
+{
+  "name": "ICC0008-UF1-PR01-liaxioataobatllefigueras",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
