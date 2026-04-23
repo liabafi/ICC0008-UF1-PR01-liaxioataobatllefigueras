@@ -1,5 +1,5 @@
-.login-content {
-  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.register-content {
+  --background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,12 +7,12 @@
   padding: 1.25rem;
 }
 
-.login-container {
+.register-container {
   width: 100%;
-  max-width: 25rem;
+  max-width: 26.25rem;
 }
 
-.login-header {
+.register-header {
   text-align: center;
   margin-bottom: 1.875rem;
 }
@@ -29,8 +29,9 @@
     margin: 0 auto 1.25rem;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 
-    .login-icon {
+    .register-icon {
       font-size: 2rem;
       color: white;
     }
@@ -46,14 +47,15 @@
   }
 
   .subtitle {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     font-size: clamp(0.875rem, 2.5vw, 1rem);
     margin: 0;
+    font-weight: 300;
     line-height: 1.4;
   }
 }
 
-.login-card {
+.register-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 1.25rem;
@@ -62,7 +64,7 @@
   margin: 0;
 
   ion-card-content {
-    padding: 2rem 1.5rem;
+    padding: 1.75rem 1.5rem;
   }
 }
 
@@ -96,14 +98,48 @@
 
     &:focus {
       --background: white;
-      border-color: #667eea;
-      box-shadow: 0 0 0 0.1875rem rgba(102, 126, 234, 0.1);
+      border-color: #43cea2;
+      box-shadow: 0 0 0 0.1875rem rgba(67, 206, 162, 0.1);
       --color: #1a202c;
     }
 
     &.invalid {
       border-color: #e74c3c;
       --color: #e53e3e;
+    }
+  }
+}
+
+.terms-item {
+  --background: transparent;
+  --border-width: 0;
+  --border-style: none;
+  --highlight-height: 0;
+  margin: 1rem 0;
+
+  ion-checkbox {
+    --checkbox-background-checked: #43cea2;
+    --checkbox-background-checked-hover: #3ab8a0;
+    margin-right: 0.75rem;
+  }
+
+  .terms-label {
+    font-size: clamp(0.8125rem, 2vw, 0.9rem);
+    line-height: 1.4;
+    color: #4a5568;
+
+    .highlight {
+      color: #43cea2;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: underline;
+      text-decoration-color: rgba(67, 206, 162, 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        text-decoration-color: #43cea2;
+        color: #3ab8a0;
+      }
     }
   }
 }
@@ -126,11 +162,11 @@
   }
 }
 
-.login-button {
-  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.register-button {
+  --background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
   --border-radius: 0.75rem;
-  --box-shadow: 0 0.25rem 0.9375rem rgba(102, 126, 234, 0.3);
-  margin-top: 1.5rem;
+  --box-shadow: 0 0.25rem 0.9375rem rgba(67, 206, 162, 0.3);
+  margin-top: 1.25rem;
   height: 3.125rem;
   font-weight: 600;
   font-size: clamp(0.9375rem, 2.5vw, 1rem);
@@ -139,7 +175,7 @@
   line-height: 1.2;
 
   &:hover {
-    --box-shadow: 0 0.375rem 1.25rem rgba(102, 126, 234, 0.4);
+    --box-shadow: 0 0.375rem 1.25rem rgba(67, 206, 162, 0.4);
   }
 
   &:disabled {
@@ -147,77 +183,99 @@
     --box-shadow: none;
   }
 
-  .login-spinner {
+  .register-spinner {
     width: 1.25rem;
     height: 1.25rem;
   }
 }
 
-.login-footer {
+.register-footer {
   text-align: center;
   margin-top: 1.5rem;
 
-  .forgot-password {
-    color: #6c757d;
-    font-size: clamp(0.8125rem, 2vw, 0.9rem);
-    margin: 0 0 1rem 0;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    line-height: 1.4;
-
-    &:hover {
-      color: #667eea;
-    }
-  }
-
-  .signup-link {
+  .login-link {
     color: #6c757d;
     font-size: clamp(0.8125rem, 2vw, 0.9rem);
     margin: 0;
     line-height: 1.4;
 
     .highlight {
-      color: #667eea;
+      color: #43cea2;
       font-weight: 500;
       cursor: pointer;
       transition: color 0.3s ease;
 
       &:hover {
-        color: #764ba2;
+        color: #185a9d;
       }
     }
   }
 }
 
+// Animaciones y transiciones
+.register-card {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-header {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 // Responsive design with comprehensive media queries
 @media (max-width: 480px) {
-  .login-content {
+  .register-content {
     padding: 1rem;
   }
 
-  .login-card ion-card-content {
+  .register-card ion-card-content {
     padding: 1.5rem 1.25rem;
   }
 
-  .login-header h1 {
+  .register-header h1 {
     font-size: clamp(1.25rem, 5vw, 1.8rem);
   }
 
-  .login-button {
+  .register-button {
     height: 3rem;
   }
 
-  .login-container {
+  .terms-item {
+    .terms-label {
+      font-size: clamp(0.75rem, 2.2vw, 0.85rem);
+    }
+  }
+
+  .register-container {
     max-width: 100%;
   }
 }
 
 @media (max-width: 320px) {
-  .login-content {
+  .register-content {
     padding: 0.75rem;
   }
 
-  .login-card ion-card-content {
+  .register-card ion-card-content {
     padding: 1.25rem 1rem;
   }
 
@@ -225,64 +283,64 @@
     width: 4rem;
     height: 4rem;
     
-    .login-icon {
+    .register-icon {
       font-size: 1.5rem;
     }
   }
 
-  .login-button {
+  .register-button {
     height: 2.75rem;
     font-size: clamp(0.8125rem, 3vw, 0.9375rem);
   }
 }
 
 @media (min-width: 768px) {
-  .login-content {
+  .register-content {
     padding: 2rem;
   }
 
-  .login-container {
+  .register-container {
     max-width: 28rem;
   }
 
-  .login-card ion-card-content {
+  .register-card ion-card-content {
     padding: 2rem 1.75rem;
   }
 
-  .login-header {
+  .register-header {
     margin-bottom: 2.5rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .login-content {
+  .register-content {
     padding: 2.5rem;
   }
 
-  .login-container {
+  .register-container {
     max-width: 30rem;
   }
 
-  .login-card ion-card-content {
+  .register-card ion-card-content {
     padding: 2.5rem 2rem;
   }
 }
 
 @media (min-height: 800px) {
-  .login-container {
+  .register-container {
     margin-top: -3.125rem;
   }
 }
 
 @media (min-height: 1000px) {
-  .login-container {
+  .register-container {
     margin-top: -5rem;
   }
 }
 
 // High DPI displays
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .login-icon,
+  .register-icon,
   .password-toggle ion-icon {
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
@@ -291,13 +349,12 @@
 
 // Dark mode support
 @media (prefers-color-scheme: dark) {
-  .login-card {
+  .register-card {
     background: rgba(30, 30, 30, 0.95);
     border-color: rgba(255, 255, 255, 0.1);
   }
 
-  .login-footer .forgot-password,
-  .login-footer .signup-link {
+  .terms-item .terms-label {
     color: #e2e8f0;
   }
 
@@ -308,11 +365,11 @@
 
 // Reduced motion support
 @media (prefers-reduced-motion: reduce) {
-  .login-card,
-  .login-header,
-  .login-button,
+  .register-card,
+  .register-header,
+  .register-button,
   .password-toggle,
-  .login-footer .highlight {
+  .terms-item .highlight {
     transition: none;
     animation: none;
   }
@@ -320,13 +377,13 @@
 
 // Focus states para accesibilidad
 .input-item ion-input:focus,
-.login-footer .highlight:focus {
-  outline: 2px solid #667eea;
+.terms-item ion-checkbox:focus-within {
+  outline: 2px solid #43cea2;
   outline-offset: 2px;
 }
 
 // Loading state
-.login-button:disabled {
+.register-button:disabled {
   cursor: not-allowed;
   opacity: 0.7;
 }

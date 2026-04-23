@@ -76,4 +76,8 @@ export class LoginPage {
   get passwordControl() {
     return this.loginForm.get('password');
   }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
 }
