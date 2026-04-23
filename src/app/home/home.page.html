@@ -1,20 +1,90 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Travel Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="dashboard-container">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <div class="welcome-content">
+        <h1 class="welcome-title">Welcome back, {{ userName }}!</h1>
+        <p class="welcome-subtitle">Ready to explore amazing destinations?</p>
+      </div>
+      <div class="welcome-icon">
+        <ion-icon name="airplane-outline"></ion-icon>
+      </div>
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h2 class="section-title">Quick Actions</h2>
+      <div class="action-grid">
+        <ion-card class="action-card" (click)="goToDestinations()">
+          <ion-card-content>
+            <div class="action-icon">
+              <ion-icon name="map-outline"></ion-icon>
+            </div>
+            <h3 class="action-title">Explore Destinations</h3>
+            <p class="action-description">Discover amazing places around the world</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="action-card">
+          <ion-card-content>
+            <div class="action-icon">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </div>
+            <h3 class="action-title">My Saved Places</h3>
+            <p class="action-description">View your bookmarked destinations</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="action-card">
+          <ion-card-content>
+            <div class="action-icon">
+              <ion-icon name="camera-outline"></ion-icon>
+            </div>
+            <h3 class="action-title">Travel Photos</h3>
+            <p class="action-description">Your travel memories</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="action-card">
+          <ion-card-content>
+            <div class="action-icon">
+              <ion-icon name="settings-outline"></ion-icon>
+            </div>
+            <h3 class="action-title">Settings</h3>
+            <p class="action-description">Manage your preferences</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="recent-activity">
+      <h2 class="section-title">Recent Activity</h2>
+      <ion-card class="activity-card">
+        <ion-card-content>
+          <div class="activity-item">
+            <ion-icon name="location-outline" class="activity-icon"></ion-icon>
+            <div class="activity-content">
+              <h4>No recent activity</h4>
+              <p>Start exploring destinations to see your activity here</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
 </ion-content>

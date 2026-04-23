@@ -1,27 +1,119 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.dashboard-container {
+  padding: 20px;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.welcome-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  color: white;
 }
 
-#container p {
+.welcome-content {
+  flex: 1;
+}
+
+.welcome-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+}
+
+.welcome-subtitle {
   font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
   margin: 0;
+  opacity: 0.9;
 }
 
-#container a {
-  text-decoration: none;
+.welcome-icon {
+  font-size: 48px;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 20px 0 15px 0;
+  color: #333;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.action-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.action-icon {
+  font-size: 32px;
+  color: #667eea;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.action-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  text-align: center;
+  color: #333;
+}
+
+.action-description {
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+  color: #666;
+  line-height: 1.4;
+}
+
+.activity-card {
+  border-radius: 12px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.activity-icon {
+  font-size: 24px;
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.activity-content h4 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.activity-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+ion-card-content {
+  padding: 16px;
+}
+
+ion-content {
+  --background: #f8f9fa;
 }

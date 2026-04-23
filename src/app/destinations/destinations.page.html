@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Destinos Turísticos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="destinations-container">
+    <!-- Search and Filter Section -->
+    <div class="search-section">
+      <ion-searchbar 
+        placeholder="Buscar destinos..." 
+        (ionInput)="filterDestinations($event)"
+        animated="true"
+        show-clear-button="focus">
+      </ion-searchbar>
+      
+      <ion-segment (ionChange)="onSegmentChange($event)" value="all">
+        <ion-segment-button value="all">
+          <ion-label>Todos</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="europe">
+          <ion-label>Europa</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="asia">
+          <ion-label>Asia</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="americas">
+          <ion-label>Américas</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Descubre tu Próxima Aventura</h1>
+        <p class="hero-subtitle">Explora los destinos más increíbles del mundo</p>
+      </div>
+    </div>
+
+    <!-- Destinations Grid -->
+    <div class="destinations-grid">
+      <ion-card *ngFor="let destination of filteredDestinations" class="destination-card">
+        <!-- Card Header with Image -->
+        <div class="card-image-container">
+          <img [src]="destination.image" [alt]="destination.name" class="destination-image">
+          <div class="card-overlay">
+            <div class="destination-flag">{{ destination.flag }}</div>
+            <div class="card-actions">
+              <ion-button fill="clear" class="camera-btn" (click)="openCamera(destination)">
+                <ion-icon name="camera-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" class="share-btn" (click)="shareDestination(destination)">
+                <ion-icon name="share-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Content -->
+        <ion-card-header>
+          <ion-card-title class="destination-title">{{ destination.name }}</ion-card-title>
+          <ion-card-subtitle class="destination-subtitle">{{ destination.capital }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div class="destination-details">
+            <div class="detail-item">
+              <ion-icon name="location-outline" class="detail-icon"></ion-icon>
+              <span class="detail-text">{{ destination.region }}</span>
+            </div>
+            <p class="destination-description">{{ destination.description }}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>
