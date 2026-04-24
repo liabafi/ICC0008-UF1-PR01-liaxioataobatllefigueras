@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -192,7 +193,7 @@ export class DestinationsPage {
 
   filteredDestinations = [...this.destinations];
 
-  constructor() {
+  constructor(private router: Router) {
     addIcons({cameraOutline,shareOutline,locationOutline,star,searchOutline});
   }
 
@@ -233,5 +234,9 @@ export class DestinationsPage {
         destination.region.toLowerCase().includes(selectedSegment.toLowerCase())
       );
     }
+  }
+
+  viewCountryDetail(destination: Destination) {
+    this.router.navigate(['/country', destination.id]);
   }
 }

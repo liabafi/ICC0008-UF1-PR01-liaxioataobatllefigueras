@@ -1,0 +1,215 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!isLoading && country">{{ country.name }}</ion-title>
+    <ion-buttons slot="end" *ngIf="!isLoading && country">
+      <ion-button fill="clear" (click)="toggleFavorite()">
+        <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'" 
+                  [color]="isFavorite ? 'danger' : 'medium'"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="shareCountry()">
+        <ion-icon name="share-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <ion-spinner name="bubbles"></ion-spinner>
+    <p>Cargando información...</p>
+  </div>
+
+  <!-- Country Details -->
+  <div class="country-detail-container" *ngIf="!isLoading && country">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <img [src]="country.image" [alt]="country.name" class="hero-image">
+      <div class="hero-overlay">
+        <div class="hero-content">
+          <div class="country-flag">{{ country.flag }}</div>
+          <h1 class="country-name">{{ country.name }}</h1>
+          <p class="country-capital">{{ country.capital }}</p>
+          <div class="rating-section">
+            <ion-icon name="star-outline" class="star-icon"></ion-icon>
+            <span class="rating">{{ country.rating }}</span>
+            <span class="price-level">{{ country.priceLevel }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Info Cards -->
+    <div class="quick-info-section">
+      <ion-card class="info-card">
+        <ion-card-content>
+          <div class="info-item">
+            <ion-icon name="people-outline" class="info-icon"></ion-icon>
+            <div class="info-content">
+              <span class="info-label">Población</span>
+              <span class="info-value">{{ country.population }}</span>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="info-card">
+        <ion-card-content>
+          <div class="info-item">
+            <ion-icon name="language-outline" class="info-icon"></ion-icon>
+            <div class="info-content">
+              <span class="info-label">Idiomas</span>
+              <span class="info-value">{{ country.languages.join(', ') }}</span>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="info-card">
+        <ion-card-content>
+          <div class="info-item">
+            <ion-icon name="cash-outline" class="info-icon"></ion-icon>
+            <div class="info-content">
+              <span class="info-label">Moneda</span>
+              <span class="info-value">{{ country.currencies.join(', ') }}</span>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="info-card">
+        <ion-card-content>
+          <div class="info-item">
+            <ion-icon name="time-outline" class="info-icon"></ion-icon>
+            <div class="info-content">
+              <span class="info-label">Zona Horaria</span>
+              <span class="info-value">{{ country.timeZone }}</span>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Description -->
+    <ion-card class="description-card">
+      <ion-card-header>
+        <ion-card-title>Descripción</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="description-text">{{ country.description }}</p>
+        <div class="tags-container">
+          <ion-chip *ngFor="let tag of country.tags" color="primary" outline>
+            {{ tag }}
+          </ion-chip>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Fun Facts -->
+    <ion-card class="facts-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="star-outline" class="section-icon"></ion-icon>
+          Datos Fascinantes
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ul class="facts-list">
+          <li *ngFor="let fact of country.funFacts">{{ fact }}</li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Must Visit Places -->
+    <ion-card class="places-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="location-outline" class="section-icon"></ion-icon>
+          Lugares que no te puedes perder
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="places-list">
+          <div class="place-item" *ngFor="let place of country.mustVisitPlaces">
+            <ion-icon name="map-outline" class="place-icon"></ion-icon>
+            <p class="place-text">{{ place }}</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Best Time to Visit -->
+    <ion-card class="timing-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="time-outline" class="section-icon"></ion-icon>
+          Mejor Época para Visitar
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="timing-text">{{ country.bestTimeToVisit }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Local Cuisine -->
+    <ion-card class="cuisine-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="restaurant-outline" class="section-icon"></ion-icon>
+          Gastronomía Local
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="cuisine-list">
+          <div class="cuisine-item" *ngFor="let dish of country.localCuisine">
+            <span class="dish-name">{{ dish }}</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Transportation -->
+    <ion-card class="transport-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="airplane-outline" class="section-icon"></ion-icon>
+          Cómo Moverse
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="transport-text">{{ country.transportation }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Emergency Info -->
+    <ion-card class="emergency-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="location-outline" class="section-icon"></ion-icon>
+          Información de Emergencia
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="emergency-info">
+          <span class="emergency-label">Número de emergencia:</span>
+          <span class="emergency-number">{{ country.emergencyNumber }}</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <ion-button expand="block" fill="outline" (click)="openCamera()">
+        <ion-icon name="camera-outline" slot="start"></ion-icon>
+        Tomar Foto
+      </ion-button>
+      <ion-button expand="block" fill="outline" (click)="shareCountry()">
+        <ion-icon name="share-outline" slot="start"></ion-icon>
+        Compartir Destino
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

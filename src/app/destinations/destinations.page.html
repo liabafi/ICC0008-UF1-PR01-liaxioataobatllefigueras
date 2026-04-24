@@ -43,17 +43,17 @@
 
     <!-- Destinations Grid -->
     <div class="destinations-grid">
-      <ion-card *ngFor="let destination of filteredDestinations" class="destination-card">
+      <ion-card *ngFor="let destination of filteredDestinations" class="destination-card clickable" (click)="viewCountryDetail(destination)">
         <!-- Card Header with Image -->
         <div class="card-image-container">
           <img [src]="destination.image" [alt]="destination.name" class="destination-image">
           <div class="card-overlay">
             <div class="destination-flag">{{ destination.flag }}</div>
             <div class="card-actions">
-              <ion-button fill="clear" class="camera-btn" (click)="openCamera(destination)">
+              <ion-button fill="clear" class="camera-btn" (click)="openCamera(destination); $event.stopPropagation()">
                 <ion-icon name="camera-outline"></ion-icon>
               </ion-button>
-              <ion-button fill="clear" class="share-btn" (click)="shareDestination(destination)">
+              <ion-button fill="clear" class="share-btn" (click)="shareDestination(destination); $event.stopPropagation()">
                 <ion-icon name="share-outline"></ion-icon>
               </ion-button>
             </div>

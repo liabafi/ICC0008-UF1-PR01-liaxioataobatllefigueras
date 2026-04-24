@@ -1,0 +1,402 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  gap: 1rem;
+  
+  p {
+    color: var(--ion-color-medium);
+    font-size: 0.9rem;
+  }
+}
+
+.country-detail-container {
+  padding-bottom: 2rem;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.hero-content {
+  color: white;
+  width: 100%;
+}
+
+.country-flag {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.country-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.country-capital {
+  font-size: 1.1rem;
+  margin: 0;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.rating-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.star-icon {
+  color: #ffd700;
+  font-size: 1.2rem;
+}
+
+.rating {
+  font-weight: 600;
+}
+
+.price-level {
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+/* Quick Info Section */
+.quick-info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.info-card {
+  margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.info-icon {
+  font-size: 1.5rem;
+  color: var(--ion-color-primary);
+  min-width: 24px;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  color: var(--ion-color-medium);
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 0.9rem;
+  color: var(--ion-color-dark);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Cards */
+.description-card,
+.facts-card,
+.places-card,
+.timing-card,
+.cuisine-card,
+.transport-card,
+.emergency-card {
+  margin: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.description-text {
+  line-height: 1.6;
+  color: var(--ion-color-dark);
+  margin-bottom: 1rem;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Section Icons */
+.section-icon {
+  color: var(--ion-color-primary);
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Facts Section */
+.facts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.facts-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  color: var(--ion-color-dark);
+}
+
+.facts-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--ion-color-primary);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Places Section */
+.places-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.place-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  border-left: 3px solid var(--ion-color-primary);
+}
+
+.place-icon {
+  color: var(--ion-color-primary);
+  font-size: 1.2rem;
+  margin-top: 0.1rem;
+  min-width: 20px;
+}
+
+.place-text {
+  margin: 0;
+  line-height: 1.4;
+  color: var(--ion-color-dark);
+  font-size: 0.9rem;
+}
+
+/* Timing Section */
+.timing-text {
+  line-height: 1.6;
+  color: var(--ion-color-dark);
+  font-style: italic;
+}
+
+/* Cuisine Section */
+.cuisine-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.cuisine-item {
+  padding: 0.75rem;
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--ion-color-light-shade);
+}
+
+.dish-name {
+  font-size: 0.9rem;
+  color: var(--ion-color-dark);
+  font-weight: 500;
+  display: block;
+}
+
+/* Transport Section */
+.transport-text {
+  line-height: 1.6;
+  color: var(--ion-color-dark);
+}
+
+/* Emergency Section */
+.emergency-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--ion-color-danger);
+  background: linear-gradient(135deg, var(--ion-color-danger), var(--ion-color-danger-shade));
+  border-radius: 8px;
+  color: white;
+}
+
+.emergency-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.emergency-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 1rem 1rem;
+}
+
+.action-buttons ion-button {
+  flex: 1;
+  --border-radius: 12px;
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 250px;
+  }
+  
+  .hero-content {
+    padding: 1.5rem;
+  }
+  
+  .country-name {
+    font-size: 1.5rem;
+  }
+  
+  .quick-info-section {
+    grid-template-columns: 1fr;
+    padding: 0 0.5rem;
+  }
+  
+  .cuisine-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    margin: 2rem 0.5rem 1rem;
+  }
+  
+  .info-card,
+  .description-card,
+  .facts-card,
+  .places-card,
+  .timing-card,
+  .cuisine-card,
+  .transport-card,
+  .emergency-card {
+    margin: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .quick-info-section {
+    padding: 0 2rem;
+  }
+  
+  .description-card,
+  .facts-card,
+  .places-card,
+  .timing-card,
+  .cuisine-card,
+  .transport-card,
+  .emergency-card {
+    margin: 1rem 2rem;
+  }
+  
+  .action-buttons {
+    margin: 2rem 2rem 1rem;
+  }
+}
+
+/* Animations */
+.info-card,
+.description-card,
+.facts-card,
+.places-card,
+.timing-card,
+.cuisine-card,
+.transport-card,
+.emergency-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Favorite Animation */
+ion-button[fill="clear"] {
+  transition: transform 0.2s ease;
+}
+
+ion-button[fill="clear"]:active {
+  transform: scale(0.95);
+}
+
+ion-icon[name="heart"] {
+  animation: heartBeat 0.3s ease-in-out;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
