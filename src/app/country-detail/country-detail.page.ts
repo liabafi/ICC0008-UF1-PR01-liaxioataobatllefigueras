@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FavoritesService, CountryDetail } from '../services/favorites.service';
+import { CameraService } from '../services/camera.service';
+import { ShareService } from '../services/share.service';
 import { Subscription } from 'rxjs';
 import {
   IonContent,
@@ -34,7 +36,10 @@ import {
   mapOutline,
   timeOutline,
   restaurantOutline,
-  airplaneOutline
+  airplaneOutline, 
+  imagesOutline,
+  closeCircle, 
+  alertCircle
 } from 'ionicons/icons';
 
 @Component({
@@ -66,6 +71,11 @@ export class CountryDetailPage implements OnInit, OnDestroy {
   isLoading = true;
   isFavorite = false;
   private favoritesSubscription: Subscription | null = null;
+  
+  // Propiedades para manejo de fotos
+  userPhotos: string[] = [];
+  isTakingPhoto = false;
+  photoError: string | null = null;
 
   private countriesData: CountryDetail[] = [
     {
@@ -483,23 +493,11 @@ export class CountryDetailPage implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private favoritesService: FavoritesService
+    private favoritesService: FavoritesService,
+    private cameraService: CameraService,
+    private shareService: ShareService
   ) {
-    addIcons({
-      heartOutline, 
-      heart, 
-      locationOutline, 
-      peopleOutline, 
-      languageOutline, 
-      cashOutline, 
-      starOutline, 
-      cameraOutline, 
-      shareOutline,
-      mapOutline,
-      timeOutline,
-      restaurantOutline,
-      airplaneOutline
-    });
+    addIcons({shareOutline,starOutline,peopleOutline,languageOutline,cashOutline,timeOutline,locationOutline,mapOutline,restaurantOutline,airplaneOutline,cameraOutline,closeCircle,alertCircle,imagesOutline,heartOutline,heart});
   }
 
   ngOnInit() {
@@ -551,24 +549,95 @@ export class CountryDetailPage implements OnInit, OnDestroy {
     this.isFavorite = this.favoritesService.isFavorite(countryId);
   }
 
-  shareCountry() {
+  async shareCountry() {
     if (!this.country) return;
     
-    if (navigator.share) {
-      navigator.share({
-        title: `Viaja a ${this.country.name}`,
-        text: `Descubre ${this.country.name} - ${this.country.description.substring(0, 100)}...`,
-        url: window.location.href
+    try {
+      await this.shareService.shareDestinationDetails({
+        name: this.country.name,
+        capital: this.country.capital,
+        region: this.country.region,
+        description: this.country.description
       });
-    } else {
-      const text = `Descubre ${this.country.name} - ${this.country.description.substring(0, 100)}...`;
-      navigator.clipboard.writeText(text);
+    } catch (error) {
+      console.error('Error al compartir país:', error);
     }
   }
 
-  openCamera() {
-    console.log('Opening camera for:', this.country?.name);
-    // Camera functionality would be implemented here
+  async openCamera() {
+    if (!this.country) return;
+    
+    this.isTakingPhoto = true;
+    this.photoError = null;
+    
+    try {
+      const photo = await this.cameraService.pickImage();
+      
+      if (photo) {
+        const photoUrl = this.cameraService.getPhotoUrl(photo);
+        this.userPhotos.push(photoUrl);
+        
+        // Guardar la foto con el nombre del país
+        await this.cameraService.savePhotoToStorage(photo, this.country.name);
+        
+        console.log(`Foto tomada para ${this.country.name}:`, photoUrl);
+      }
+    } catch (error) {
+      this.photoError = 'No se pudo tomar la foto. Inténtalo de nuevo.';
+      console.error('Error en cámara:', error);
+    } finally {
+      this.isTakingPhoto = false;
+    }
+  }
+
+  async takePhoto() {
+    if (!this.country) return;
+    
+    this.isTakingPhoto = true;
+    this.photoError = null;
+    
+    try {
+      const photo = await this.cameraService.takePicture();
+      
+      if (photo) {
+        const photoUrl = this.cameraService.getPhotoUrl(photo);
+        this.userPhotos.push(photoUrl);
+        await this.cameraService.savePhotoToStorage(photo, this.country.name);
+        console.log(`Foto tomada con cámara para ${this.country.name}:`, photoUrl);
+      }
+    } catch (error) {
+      this.photoError = 'No se pudo tomar la foto. Inténtalo de nuevo.';
+      console.error('Error al tomar foto:', error);
+    } finally {
+      this.isTakingPhoto = false;
+    }
+  }
+
+  async selectFromGallery() {
+    if (!this.country) return;
+    
+    this.isTakingPhoto = true;
+    this.photoError = null;
+    
+    try {
+      const photo = await this.cameraService.selectFromGallery();
+      
+      if (photo) {
+        const photoUrl = this.cameraService.getPhotoUrl(photo);
+        this.userPhotos.push(photoUrl);
+        await this.cameraService.savePhotoToStorage(photo, this.country.name);
+        console.log(`Foto seleccionada de galería para ${this.country.name}:`, photoUrl);
+      }
+    } catch (error) {
+      this.photoError = 'No se pudo seleccionar la foto. Inténtalo de nuevo.';
+      console.error('Error al seleccionar de galería:', error);
+    } finally {
+      this.isTakingPhoto = false;
+    }
+  }
+
+  removePhoto(index: number) {
+    this.userPhotos.splice(index, 1);
   }
 
   goBack() {

@@ -200,13 +200,49 @@
       </ion-card-content>
     </ion-card>
 
+    <!-- User Photos Section -->
+    <ion-card class="photos-card" *ngIf="userPhotos.length > 0">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="camera-outline" class="section-icon"></ion-icon>
+          Mis Fotos de {{ country.name }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="photos-grid">
+          <div class="photo-item" *ngFor="let photo of userPhotos; let i = index">
+            <img [src]="photo" [alt]="'Foto ' + (i + 1)" class="user-photo">
+            <ion-button fill="clear" size="small" class="remove-photo-btn" (click)="removePhoto(i)">
+              <ion-icon name="close-circle"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Camera Error -->
+    <ion-card class="error-card" *ngIf="photoError">
+      <ion-card-content>
+        <div class="error-message">
+          <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+          <span>{{ photoError }}</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
     <!-- Action Buttons -->
     <div class="action-buttons">
-      <ion-button expand="block" fill="outline" (click)="openCamera()">
+      <ion-button expand="block" fill="outline" (click)="takePhoto()" [disabled]="isTakingPhoto">
         <ion-icon name="camera-outline" slot="start"></ion-icon>
-        Tomar Foto
+        <span *ngIf="!isTakingPhoto">Tomar Foto</span>
+        <span *ngIf="isTakingPhoto">Procesando...</span>
       </ion-button>
-      <ion-button expand="block" fill="outline" (click)="shareCountry()">
+      <ion-button expand="block" fill="outline" (click)="selectFromGallery()" [disabled]="isTakingPhoto">
+        <ion-icon name="images-outline" slot="start"></ion-icon>
+        <span *ngIf="!isTakingPhoto">Galería</span>
+        <span *ngIf="isTakingPhoto">Procesando...</span>
+      </ion-button>
+      <ion-button expand="block" fill="solid" color="primary" (click)="shareCountry()">
         <ion-icon name="share-outline" slot="start"></ion-icon>
         Compartir Destino
       </ion-button>

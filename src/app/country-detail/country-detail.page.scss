@@ -142,7 +142,9 @@
 .timing-card,
 .cuisine-card,
 .transport-card,
-.emergency-card {
+.emergency-card,
+.photos-card,
+.error-card {
   margin: 1rem;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -399,4 +401,67 @@ ion-icon[name="heart"] {
   0% { transform: scale(1); }
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
+}
+
+/* Photos Section */
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.photo-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.user-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.user-photo:hover {
+  transform: scale(1.05);
+}
+
+.remove-photo-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  --background: rgba(255, 255, 255, 0.9);
+  --border-radius: 50%;
+  --padding: 4px;
+  --box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.photo-item:hover .remove-photo-btn {
+  opacity: 1;
+}
+
+/* Error Section */
+.error-card {
+  background: linear-gradient(135deg, var(--ion-color-warning), var(--ion-color-warning-shade));
+  border: 1px solid var(--ion-color-warning-tint);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ion-color-dark);
+  font-weight: 500;
+}
+
+.error-icon {
+  color: var(--ion-color-warning-shade);
+  font-size: 1.2rem;
+  min-width: 20px;
 }
