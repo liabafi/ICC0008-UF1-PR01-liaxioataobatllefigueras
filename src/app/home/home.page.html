@@ -39,13 +39,16 @@
           </ion-card-content>
         </ion-card>
 
-        <ion-card class="action-card">
+        <ion-card class="action-card clickable" (click)="scrollToSavedPlaces()">
           <ion-card-content>
             <div class="action-icon">
               <ion-icon name="bookmark-outline"></ion-icon>
             </div>
             <h3 class="action-title">My Saved Places</h3>
             <p class="action-description">View your bookmarked destinations</p>
+            <div class="favorites-count" *ngIf="favoriteCountries.length > 0">
+              <span class="count-badge">{{ favoriteCountries.length }}</span>
+            </div>
           </ion-card-content>
         </ion-card>
 
@@ -66,6 +69,69 @@
             </div>
             <h3 class="action-title">Settings</h3>
             <p class="action-description">Manage your preferences</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <!-- My Saved Places -->
+    <div id="saved-places-section" class="saved-places" *ngIf="favoriteCountries.length > 0 || !isLoadingFavorites">
+      <h2 class="section-title">My Saved Places</h2>
+      
+      <!-- Loading State -->
+      <div class="loading-favorites" *ngIf="isLoadingFavorites">
+        <ion-spinner name="bubbles"></ion-spinner>
+        <p>Cargando tus destinos guardados...</p>
+      </div>
+
+      <!-- Empty State -->
+      <ion-card class="empty-state" *ngIf="!isLoadingFavorites && favoriteCountries.length === 0">
+        <ion-card-content>
+          <div class="empty-content">
+            <ion-icon name="heart-outline" class="empty-icon"></ion-icon>
+            <h3>No tienes destinos guardados</h3>
+            <p>Explora los destinos y añade tus favoritos para verlos aquí</p>
+            <ion-button fill="solid" (click)="goToDestinations()">
+              <ion-icon name="map-outline" slot="start"></ion-icon>
+              Explorar Destinos
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Favorites Grid -->
+      <div class="favorites-grid" *ngIf="!isLoadingFavorites && favoriteCountries.length > 0">
+        <ion-card class="favorite-card" *ngFor="let country of favoriteCountries">
+          <div class="favorite-card-header">
+            <img [src]="country.image" [alt]="country.name" class="favorite-image">
+            <div class="favorite-overlay">
+              <div class="country-flag-large">{{ country.flag }}</div>
+              <ion-button fill="clear" class="remove-favorite-btn" (click)="removeFromFavorites(country.id); $event.stopPropagation()">
+                <ion-icon name="heart" color="danger"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+          
+          <ion-card-content class="favorite-content" (click)="viewCountryDetail(country.id)">
+            <h3 class="favorite-title">{{ country.name }}</h3>
+            <p class="favorite-subtitle">{{ country.capital }}</p>
+            <div class="favorite-details">
+              <div class="detail-item">
+                <ion-icon name="location-outline" class="detail-icon"></ion-icon>
+                <span class="detail-text">{{ country.region }}</span>
+              </div>
+              <div class="detail-item">
+                <ion-icon name="star-outline" class="detail-icon"></ion-icon>
+                <span class="detail-text">{{ country.rating }}</span>
+                <span class="price-level">{{ country.priceLevel }}</span>
+              </div>
+            </div>
+            <p class="favorite-description">{{ country.description }}</p>
+            <div class="favorite-tags">
+              <ion-chip *ngFor="let tag of country.tags.slice(0, 3)" color="primary" outline size="small">
+                {{ tag }}
+              </ion-chip>
+            </div>
           </ion-card-content>
         </ion-card>
       </div>

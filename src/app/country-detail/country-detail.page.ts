@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FavoritesService, CountryDetail } from '../services/favorites.service';
+import { Subscription } from 'rxjs';
 import {
   IonContent,
   IonHeader,
@@ -35,29 +37,6 @@ import {
   airplaneOutline
 } from 'ionicons/icons';
 
-export interface CountryDetail {
-  id: number;
-  name: string;
-  capital: string;
-  region: string;
-  flag: string;
-  image: string;
-  description: string;
-  rating: number;
-  priceLevel: string;
-  tags: string[];
-  population: string;
-  languages: string[];
-  currencies: string[];
-  funFacts: string[];
-  mustVisitPlaces: string[];
-  bestTimeToVisit: string;
-  localCuisine: string[];
-  transportation: string;
-  timeZone: string;
-  emergencyNumber: string;
-}
-
 @Component({
   selector: 'app-country-detail',
   templateUrl: './country-detail.page.html',
@@ -82,10 +61,11 @@ export interface CountryDetail {
     IonSpinner
   ]
 })
-export class CountryDetailPage implements OnInit {
+export class CountryDetailPage implements OnInit, OnDestroy {
   country: CountryDetail | null = null;
   isLoading = true;
   isFavorite = false;
+  private favoritesSubscription: Subscription | null = null;
 
   private countriesData: CountryDetail[] = [
     {
@@ -502,7 +482,8 @@ export class CountryDetailPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private favoritesService: FavoritesService
   ) {
     addIcons({
       heartOutline, 
@@ -527,6 +508,19 @@ export class CountryDetailPage implements OnInit {
       this.loadCountry(id);
       this.checkFavorite(id);
     });
+
+    // Subscribe to favorites changes
+    this.favoritesSubscription = this.favoritesService.favorites$.subscribe(() => {
+      if (this.country) {
+        this.isFavorite = this.favoritesService.isFavorite(this.country.id);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.favoritesSubscription) {
+      this.favoritesSubscription.unsubscribe();
+    }
   }
 
   loadCountry(id: number) {
@@ -543,31 +537,18 @@ export class CountryDetailPage implements OnInit {
     }, 500);
   }
 
-  toggleFavorite() {
+  async toggleFavorite() {
     if (!this.country) return;
     
-    const favorites = this.getFavorites();
-    const index = favorites.indexOf(this.country.id);
-    
-    if (index > -1) {
-      favorites.splice(index, 1);
-      this.isFavorite = false;
-    } else {
-      favorites.push(this.country.id);
-      this.isFavorite = true;
+    try {
+      this.isFavorite = await this.favoritesService.toggleFavorite(this.country.id);
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
     }
-    
-    localStorage.setItem('favorite_countries', JSON.stringify(favorites));
   }
 
   checkFavorite(countryId: number) {
-    const favorites = this.getFavorites();
-    this.isFavorite = favorites.includes(countryId);
-  }
-
-  getFavorites(): number[] {
-    const stored = localStorage.getItem('favorite_countries');
-    return stored ? JSON.parse(stored) : [];
+    this.isFavorite = this.favoritesService.isFavorite(countryId);
   }
 
   shareCountry() {
